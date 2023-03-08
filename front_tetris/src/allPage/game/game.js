@@ -1,19 +1,22 @@
-import { connect } from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
+import axios from 'axios';
+import { connectGame, disconnectGame } from '../../reducer/reducerGame'
+import { logger, accueil, salonReglage, salonAttente, game } from '../../reducer/reducerPages'
 
-function GamePure() {
-    return (
-    <div>
-        Game
-    </div>
-    )
-}
+export function ModuleGame(){
+    let myGame = useSelector((state) => state.game.value)
+    let user = useSelector((state) => state.user.value)
+    let dispatch = useDispatch();
 
-const Game = connect(
-    (state) => {
-        return {
-            store: state,
-        }
+    function handleQuitterGame(){
+        axios.post('http://localhost:3001/apiGames/supPlayeurInGame', {gameId:myGame.id, userId:user.id});
+        dispatch(disconnectGame());
+        dispatch(accueil());
     }
-)(GamePure)
-
-export default Game;
+    return (
+        <div>
+            game
+            <input type="button" value="quitter" onClick={() => {handleQuitterGame()}}/>
+        </div>
+    );
+}

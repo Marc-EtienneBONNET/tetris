@@ -1,51 +1,35 @@
-import { useState } from 'react'
-import { connect } from 'react-redux'
-import { CONNECT_MY_USER, DISCONNECT_MY_USER } from './../../reducer/userReducer'
-import { ACCUEIL, GAME, LOGGER, SALON_ATTENTE, SALON_REGLAGE } from './../../reducer/pagesReducer'
-import axios  from 'axios'
+import { useState } from 'react';
+import { useSelector, useDispatch} from 'react-redux'
+import axios from 'axios';
+import { logger, accueil, salonReglage, salonAttente, game } from '../../reducer/reducerPages'
+import { connectUser } from '../../reducer/reducerUser'
 
 
-function LoggerPure(state) {
-    const [nameUser, setNameUser] = useState("");
+export function ModuleLogger(){
+    let [name, setName] = useState("Luffy")
+    let dispatch = useDispatch();
 
-    async function add_user(){
-        let user = (await axios.post('http://localhost:3001/apiUsers/addUsers', {name:nameUser, hist:[], actif:true})).data;
-        state.dispatch({type:CONNECT_MY_USER, payload:{...user}});
-        state.dispatch({type:ACCUEIL});
-    }
-
-    async function handleValidateNameUser(nameUser){
-        let tmp = (await axios.post('http://localhost:3001/apiUsers/connection', {name:nameUser})).data;
-        switch (tmp.res){
-            case 'User does not exist' :
-                add_user();
-                return;
-            case 'User is already connected' :
-                alert('The user ' + nameUser + ' already connected')
-                return ;
-            case 'User is available':
-                state.dispatch({type:CONNECT_MY_USER, payload:{...tmp.user}});
-                state.dispatch({type:ACCUEIL});
-                return ;
-            default :
+    async function handleValide(){
+        let tmp = (await axios.post('http://localhost:3001/apiUsers/connection', {name:name})).data;
+        if (tmp.res === 'User does not exist')
+            tmp.user = (await axios.post('http://localhost:3001/apiUsers/addUsers', {name:name, hist:[], actif:true})).data;
+        else if (tmp.res === 'User is already connected'){
+            alert('The user ' + name + ' already connected');
+            return ;
         }
+        dispatch(connectUser(tmp.user));
+        dispatch(accueil());
     }
+
+    function handleChangeName(e){
+        setName(e);
+    }
+
     return (
-    <div>
-        <form>
-            <input onChange={(e) => {setNameUser(e.target.value)}} type='text' value={nameUser}/>
-            <input onClick={() => {handleValidateNameUser(nameUser)}} type='button' value='Connecter/creer'/>
-        </form>
-    </div>
-    )
+        <div>
+            logger
+            <input onChange={(e) => {handleChangeName(e.target.value)}} type="text" value={name}/>
+            <input onClick={() => {handleValide()}} type="button" value="Valide"/>
+        </div>
+    );
 }
-
-const Logger = connect(
-    (state) => {
-        return {
-            store: state,
-        }
-    }
-)(LoggerPure)
-
-export default Logger;

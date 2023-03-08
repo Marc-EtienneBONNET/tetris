@@ -21,7 +21,6 @@ apiUsers.post('/suppUsers', (req, res) => {
         if (element.id != req.body.id)
             return element;
     })
-    console.log(users);
 })
 
 apiUsers.post('/actif', (req, res) => {

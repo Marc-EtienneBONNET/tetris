@@ -1,19 +1,17 @@
-import { connect } from 'react-redux'
-import { witchPage} from './data/page'
-import { ACCUEIL } from './reducer/pagesReducer'
 
-function App(state) {
+import { allPages } from './data/allPage';
+import { useSelector, useDispatch} from 'react-redux'
+
+function App() {
+  let value = useSelector((state) => state.pages.value);
+
+
   return (
       <div>
-        {state.store.page}
+          {allPages[value]}
       </div>
   );
 }
 
-const AppStore = connect(
-  (state) => {
-    return ({store: state});
-  }
-)(App)
 
-export default AppStore;
+export default App;
