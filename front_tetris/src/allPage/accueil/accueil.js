@@ -1,7 +1,7 @@
 import { useSelector, useDispatch} from 'react-redux'
 import axios from 'axios';
 import { connectUser, disconnectUser } from '../../reducer/reducerUser'
-import { logger, accueil, salonReglage, salonAttente, game } from '../../reducer/reducerPages'
+import { logger, accueil, salonReglage, game } from '../../reducer/reducerPages'
 import { ModuleHistUser } from './histGame'
 import { ModuleGamesDispo } from './gamesDispo'
 

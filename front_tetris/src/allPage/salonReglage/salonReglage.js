@@ -1,7 +1,8 @@
 import { useSelector, useDispatch} from 'react-redux'
 import { useState } from 'react'
 import { connectGame, disconnectGame } from '../../reducer/reducerGame'
-import { logger, accueil, salonReglage, salonAttente, game } from '../../reducer/reducerPages'
+import { logger, accueil, salonReglage, game } from '../../reducer/reducerPages'
+import { connectUser } from '../../reducer/reducerUser'
 
 import axios from 'axios'
 
@@ -11,8 +12,18 @@ export function ModuleSalonReglage(){
     let [tmpGame, setTmpGame] = useState({
         listePlayeur:[user],
         nbPlayeur:1,
-        actuelPiece:{},
+        seriePiece:[],
         vitesse:1,
+        map:[ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]],
         start:false,
     })
 
@@ -26,9 +37,12 @@ export function ModuleSalonReglage(){
                 )
     }
     async function handlePlayGame(){
-        let tmp = (await axios.post('http://localhost:3001/apiGames/addGames', {...tmpGame})).data;
-        dispatch(connectGame(tmp));
-        dispatch(salonAttente());
+        let game = (await axios.post('http://localhost:3001/apiGames/addGames', {...tmpGame})).data;
+        let myUser = (await axios.post('http://localhost:3001/apiUsers/addIdGameInUser', {gameId:game.id, userId:user.id})).data;
+        console.log('cocuou');
+        dispatch(connectGame(game));
+        dispatch(connectUser(myUser));
+        dispatch(game());
     }
     return (
         <div>

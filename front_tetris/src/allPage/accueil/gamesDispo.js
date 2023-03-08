@@ -2,8 +2,9 @@ import { useSelector, useDispatch} from 'react-redux'
 import axios from 'axios';
 import { initGames } from '../../reducer/reducerGames'
 import { connectGame, disconnectGame } from '../../reducer/reducerGame'
-import { logger, accueil, salonReglage, salonAttente, game } from '../../reducer/reducerPages'
+import { logger, accueil, salonReglage, game } from '../../reducer/reducerPages'
 import { ifNewInfoInGames } from '../TestNewInfo/testNewInfo'
+import { connectUser } from '../../reducer/reducerUser'
 
 
 export function ModuleGamesDispo(){
@@ -20,9 +21,11 @@ export function ModuleGamesDispo(){
     }
 
     async function handleJoinNewGame(element){
-        let game = (await axios.post('http://localhost:3001/apiGames/addPlayeurInGame', {gameId:element.id, user:user})).data;
-        dispatch(connectGame(game));
-        dispatch(salonAttente());
+        let myGame = (await axios.post('http://localhost:3001/apiGames/addPlayeurInGame', {gameId:element.id, user:user})).data;
+        let myUser = (await axios.post('http://localhost:3001/apiUsers/addIdGameInUser', {gameId:myGame.id, userId:user.id})).data;
+        dispatch(connectUser(myUser));
+        dispatch(connectGame(myGame));
+        dispatch(game());
     }
 
     function takeListeGamesDispo(){

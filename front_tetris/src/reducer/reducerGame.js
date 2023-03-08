@@ -12,10 +12,15 @@ export const gameSlice = createSlice({
         disconnectGame: (state) => {
             console.log('on est bien passer ici');
             state.value = {};
+        },
+        changeMap: (state, action) => {
+            for (let i = 0; action.payload[i]; i++){
+                state.value.map[action.payload[i].y][action.payload[i].x] = action.payload[i].value;
+            }
         }
     }
 })
 
-export const { connectGame, disconnectGame } = gameSlice.actions
+export const { connectGame, disconnectGame, changeMap} = gameSlice.actions
 
 export default gameSlice.reducer;

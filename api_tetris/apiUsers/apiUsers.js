@@ -16,6 +16,18 @@ apiUsers.post('/addUsers', (req, res) => {
     }
 })
 
+apiUsers.post('/addIdGameInUser', (req, res) => {
+    let user;
+    for (let i = 0; users[i]; i++){
+        if (req.body.userId === users[i].id){
+            users[i].gameId = req.body.gameId;
+            user = users[i];
+            break;
+        }
+    }
+    res.send(user);
+})
+
 apiUsers.post('/suppUsers', (req, res) => {
     users = users.filter((element) => {
         if (element.id != req.body.id)

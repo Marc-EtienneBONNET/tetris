@@ -12,6 +12,7 @@ let users = [
             listePlayeur:[],
             vitesse:2,
         },],
+        gameId:-1,
         actif:false,
     },
     {
@@ -19,6 +20,7 @@ let users = [
         name:'Zoro',
         hist:[],
         actif: false,
+        gameId:-1,
     },
 ]
 
