@@ -13,6 +13,7 @@ let users = [
             vitesse:2,
         },],
         gameId:-1,
+        map:[],
         actif:false,
     },
     {
@@ -20,6 +21,7 @@ let users = [
         name:'Zoro',
         hist:[],
         actif: false,
+        map:[],
         gameId:-1,
     },
 ]

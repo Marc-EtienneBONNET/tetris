@@ -10,7 +10,6 @@ export const gameSlice = createSlice({
             state.value = action.payload;
         },
         disconnectGame: (state) => {
-            console.log('on est bien passer ici');
             state.value = {};
         },
         changeMap: (state, action) => {

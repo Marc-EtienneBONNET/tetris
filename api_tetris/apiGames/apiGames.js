@@ -65,7 +65,7 @@ apiGames.post('/startGame', (req, res) => {
 
     let game;
    for (let i = 0; games[i]; i++){
-        if (games[i].id === req.body.id){
+        if (games[i].id === req.body.gameId){
             games[i].start = true;
             game = games[i];
         }
