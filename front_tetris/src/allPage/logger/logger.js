@@ -12,7 +12,7 @@ export function ModuleLogger(){
     async function handleValide(){
         let tmp = (await axios.post('http://localhost:3001/apiUsers/connection', {name:name})).data;
         if (tmp.res === 'User does not exist')
-            tmp.user = (await axios.post('http://localhost:3001/apiUsers/addUsers', {name:name, hist:[], actif:true, gameId:-1, map:[]})).data;
+            tmp.user = (await axios.post('http://localhost:3001/apiUsers/addUsers', {name:name, hist:[], actif:true, gameId:-1, map:[], piece:{}})).data;
         else if (tmp.res === 'User is already connected'){
             alert('The user ' + name + ' already connected');
             return ;

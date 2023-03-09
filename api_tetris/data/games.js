@@ -10,10 +10,9 @@ let games = [
     {
         id:2,
         listePlayeur:[],
-        actuelPiece:{},
         nbPlayeur:1,
+        seriePiece:[],
         vitesse:1,
-        
         start:false,
     },
 ]

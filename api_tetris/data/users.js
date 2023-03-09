@@ -14,6 +14,7 @@ let users = [
         },],
         gameId:-1,
         map:[],
+        piece: {},
         actif:false,
     },
     {
@@ -22,6 +23,7 @@ let users = [
         hist:[],
         actif: false,
         map:[],
+        piece: {},
         gameId:-1,
     },
 ]
