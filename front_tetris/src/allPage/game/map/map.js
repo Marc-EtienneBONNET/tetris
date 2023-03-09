@@ -7,15 +7,20 @@ const socket = io("http://localhost:3001");
 export function ModuleGameMap(){
     let myGame = useSelector((state) => state.game.value)
     let dispatch = useDispatch();
-
+    function test(game){
+        dispatch(connectGame(game));
+        
+    }
     if (myGame.nbPlayeur <= myGame.listePlayeur.length){
-
-        setTimeout(() => {socket.emit('refresh', myGame)}, 1000);
+        setTimeout(() => {console.log('test');socket.emit('refresh', myGame)}, 1000);
+    }
+    if (myGame.start === false){
         socket.on('refresh', (game) => {
             console.log('refresh myGame');
-            dispatch(connectGame(game));
+            test(game);
         })
-    }   
+    }
+    console.log('on passe bien la');  
     function initMap(){
         return (
             <div className='mapGame'>

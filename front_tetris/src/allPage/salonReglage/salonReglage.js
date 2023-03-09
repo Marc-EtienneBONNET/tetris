@@ -37,10 +37,9 @@ export function ModuleSalonReglage(){
                 )
     }
     async function handlePlayGame(){
-        let game = (await axios.post('http://localhost:3001/apiGames/addGames', {...tmpGame})).data;
-        let myUser = (await axios.post('http://localhost:3001/apiUsers/addIdGameInUser', {gameId:game.id, userId:user.id})).data;
-        console.log('cocuou');
-        dispatch(connectGame(game));
+        let myGame = (await axios.post('http://localhost:3001/apiGames/addGames', {...tmpGame})).data;
+        let myUser = (await axios.post('http://localhost:3001/apiUsers/addIdGameInUser', {gameId:myGame.id, userId:user.id})).data;
+        dispatch(connectGame(myGame));
         dispatch(connectUser(myUser));
         dispatch(game());
     }

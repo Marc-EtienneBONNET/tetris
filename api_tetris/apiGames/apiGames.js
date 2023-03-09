@@ -41,8 +41,6 @@ apiGames.post('/addPlayeurInGame', (req, res) => {
     for (let i = 0; games[i]; i++){
         if (games[i].id === req.body.gameId){
             games[i].listePlayeur.push(req.body.user)
-            if (games[i].nbPlayeur <= games[i].listePlayeur.length)
-                games[i].start = true;
             game = games[i];
         }
     }
@@ -61,6 +59,18 @@ apiGames.post('/supPlayeurInGame', (req, res) => {
         }
         return (element);
     })
+})
+
+apiGames.post('/startGame', (req, res) => {
+
+    let game;
+   for (let i = 0; games[i]; i++){
+        if (games[i].id === req.body.id){
+            games[i].start = true;
+            game = games[i];
+        }
+   }
+   res.send(game);
 })
 
 module.exports = apiGames;
