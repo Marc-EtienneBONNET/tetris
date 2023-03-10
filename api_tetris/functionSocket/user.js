@@ -39,8 +39,8 @@ function newMap(user){
         users[objUser.index].piece = games[objGame.index].seriePiece[0];
       }
       else{
-        users[objUser.index].piece = new Bar(0, 15, 0, 1, objUser.user.map)
-        games[objGame.index].seriePiece.push(new Bar(0, 15, 0, 1, objUser.user.map))
+        users[objUser.index].piece = new Bar(3, 0, 0, 1, objUser.user.map)
+        games[objGame.index].seriePiece.push(new Bar(3, 0, 0, 1, objUser.user.map))
       }
     }
     else {
@@ -48,8 +48,8 @@ function newMap(user){
         users[objUser.index].piece = games[objGame.index].seriePiece[data.piece.index + 1];
       }
       else{
-        users[objUser.index].piece = new Bar(1, 0, games[objGame.index].seriePiece.length, 1, objUser.user.map)
-        games[objGame.index].seriePiece.push(new Bar(1, 0, games[objGame.index].seriePiece.length, 1, objUser.user.map))
+        users[objUser.index].piece = new Bar(3, 0, games[objGame.index].seriePiece.length, 1, objUser.user.map)
+        games[objGame.index].seriePiece.push(new Bar(3, 0, games[objGame.index].seriePiece.length, 1, objUser.user.map))
         }
     }
   }
