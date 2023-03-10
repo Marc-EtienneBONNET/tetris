@@ -16,34 +16,35 @@ class Bar {
         this.sens = sens;
         switch(sens){
             case 1:
-                this.piece[0] = {x:this.x, y:this.y + 1};
-                this.piece[1] = {x:this.x + 1, y:this.y + 1};
-                this.piece[2] = {x:this.x + 2, y:this.y + 1};
-                this.piece[3] = {x:this.x + 3, y:this.y + 1};
+                    this.piece[0] = {x:this.x, y:this.y + 1};
+                    this.piece[1] = {x:this.x + 1, y:this.y + 1};
+                    this.piece[2] = {x:this.x + 2, y:this.y + 1};
+                    this.piece[3] = {x:this.x + 3, y:this.y + 1};
                 return ;
             case 2:
-                this.piece[0] = {x:this.x + 2, y:this.y};
-                this.piece[1] = {x:this.x + 2, y:this.y + 1};
-                this.piece[2] = {x:this.x + 2, y:this.y + 2};
-                this.piece[3] = {x:this.x + 2, y:this.y + 3};
+                    this.piece[0] = {x:this.x + 2, y:this.y};
+                    this.piece[1] = {x:this.x + 2, y:this.y + 1};
+                    this.piece[2] = {x:this.x + 2, y:this.y + 2};
+                    this.piece[3] = {x:this.x + 2, y:this.y + 3};
                 return ;
             case 3:
-                this.piece[0] = {x:this.x, y:this.y + 2};
-                this.piece[1] = {x:this.x + 1, y:this.y + 2};
-                this.piece[2] = {x:this.x + 2, y:this.y + 2};
-                this.piece[3] = {x:this.x + 3, y:this.y + 2};
+                    this.piece[0] = {x:this.x, y:this.y + 2};
+                    this.piece[1] = {x:this.x + 1, y:this.y + 2};
+                    this.piece[2] = {x:this.x + 2, y:this.y + 2};
+                    this.piece[3] = {x:this.x + 3, y:this.y + 2};
                 return ;
             case 4:
-                this.piece[0] = {x:this.x + 1, y:this.y};
-                this.piece[1] = {x:this.x + 1, y:this.y + 1};
-                this.piece[2] = {x:this.x + 1, y:this.y + 2};
-                this.piece[3] = {x:this.x + 1, y:this.y + 3};
+                    this.piece[0] = {x:this.x + 1, y:this.y};
+                    this.piece[1] = {x:this.x + 1, y:this.y + 1};
+                    this.piece[2] = {x:this.x + 1, y:this.y + 2};
+                    this.piece[3] = {x:this.x + 1, y:this.y + 3};
                 return ;
         }
     }
     mouvPosition(x, y){
         this.x = x;
         this.y = y;
+        this.mouvSense(this.sens)
     }
 }
 

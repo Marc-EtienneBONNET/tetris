@@ -3,9 +3,9 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 let games = require('./data/games')
 let users = require('./data/users')
-const { takeUser, changeUser} = require('./functionSocket/user')
-const { takeGame } = require('./functionSocket/map')
-const {T, EclaireGauche, EclaireDroite, Carrer, AngleDroite, AngleGauche, Bar} = require('./data/piece')
+const { takeUser, changeUser, newPiece, newMap} = require('./functionSocket/user')
+const { takeGame } = require('./functionSocket/game')
+const {T, EclaireGauche, EclaireDroite, Carrer, AngleDroite, AngleGauche, Bar} = require('./data/pieces/bar')
 
 
 const app = express();
@@ -50,55 +50,35 @@ httpServer.listen(3001);
 io.on("connection", (socket) => {
 
   let crono = 0;
+
     socket.on('boucle', (data) =>{
-      crono += 1;
+      if (data.crono === true)
+        crono += 1;
       if (crono%10 === 0){
-        console.log('ici :', crono);
+        let objUserTmp = takeUser(data.myUser.id);
         let myDataGame = {
-          game : (takeGame(data.gameId)).game,
-          user : (takeUser(data.id)).user
+          game : (takeGame(data.myUser.gameId)).game,
+          user : objUserTmp.user
         };
+        if (users[objUserTmp.index].piece.index != -1){
+          users[objUserTmp.index].piece.mouvPiece(1,users[objUserTmp.index].piece.x, users[objUserTmp.index].piece.y + 1, users[objUserTmp.index].map);
+          if (users[objUserTmp.index].piece.fin === true){
+            users[objUserTmp.index].map = newMap(users[objUserTmp.index]);
+            newPiece(users[objUserTmp.index]);
+          }
+        }
         socket.emit('tictac', myDataGame);
       }
       else
         socket.emit('boucle');
     })
-    socket.on('tictac', (data) => {
-      let myDataGame = {
-        game : (takeGame(data.gameId)).game,
-        user : (takeUser(data.id)).user
-      };
-      socket.emit('tictac', myDataGame);
-    })
 
     socket.on('changeUser', (data) => {
       changeUser(data.id, data);
-     // socket.emit('refresh', myDataGame);
     })
 
-    socket.on('newPiece', (data) => {
-        let objGame = takeGame(data.gameId);
-        let objUser = takeUser(data.id); 
-        let tmpPiece;
-        if (!data.piece.index){
-          if (games[objGame.index].seriePiece[0]){
-            tmpPiece = games[objGame.index].seriePiece[0];
-          }
-          else{
-            tmpPiece = new Bar(0, 0, 0, 1)
-            games[objGame.index].seriePiece.push(tmpPiece);
-          }
-        }
-        else {
-          if (games[objGame.index].seriePiece[data.piece.index + 1]){
-              tmpPiece = games[objGame.index].seriePiece[data.piece.index + 1];
-          }
-          else{
-            tmpPiece = new Bar(0, 0, games[objGame.index].seriePiece.length, 1)
-            games[objGame.index].seriePiece.push(tmpPiece);
-          }
-        }
-        users[objUser.index].piece = tmpPiece;
-    })
+
+    socket.on('newPiece', (data) => { newPiece(data) })
   });
   
+
