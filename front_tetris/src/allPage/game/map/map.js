@@ -33,7 +33,6 @@ export function ModuleGameMap(){
             socket.on('refresh', (data) => {        //refresh est appeler afin de metre a jour les info du jeux a chaque commande passer
                 dispatch(connectGame(data.game));
                 dispatch(connectUser(data.user));
-                setTimeout(() => {socket.emit('boucle', {myUser:myUser, crono:false})}, 100);
             })
         }
     }
@@ -52,9 +51,27 @@ export function ModuleGameMap(){
 
     
     boucleRefresh();
+
+    function handleMouvPiece(e){
+        switch(e.keyCode){
+            case 39:
+                socket.emit('mouvPiece', {x : 1, y: 0, sens:myUser.piece.sens, myUser})
+                return ;
+            case 37:
+                socket.emit('mouvPiece', {x : -1, y: 0, sens:myUser.piece.sens, myUser})
+                return ;
+            case 32:
+                socket.emit('mouvPiece', {x : 0, y: 0, sens:myUser.piece.sens === 4 ? 1 : myUser.piece.sens+1, myUser})
+                return ;
+            case 40:
+                socket.emit('mouvPiece', {x : 0, y: 1, sens:myUser.piece.sens, myUser})
+                return ;
+        }
+    }
+    
     function initMap(myMap){
         return (
-            <div className='mapGame'>
+            <div className='mapGame' onKeyDown={(e) => {handleMouvPiece(e)}} tabIndex={-1}>
                 {myMap.map((element, index) => {
                     return (
                         <div key={'c' + index} className='coloneGame'>

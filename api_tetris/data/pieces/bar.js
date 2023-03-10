@@ -1,5 +1,14 @@
 function checkMouv(newPiece, map){
-    if (map[newPiece[0].x][newPiece[0].y] != 0 ||
+
+    if (
+        newPiece[0].x >= 10 || newPiece[0].x < 0 || 
+        newPiece[1].x >= 10 || newPiece[1].x < 0 ||
+        newPiece[2].x >= 10 || newPiece[2].x < 0 ||
+        newPiece[3].x >= 10 || newPiece[3].x < 0 ||
+        newPiece[0].y < 0 || newPiece[1].y < 0 ||
+        newPiece[2].y < 0 || newPiece[3].y < 0)
+        return (1);
+    else if (map[newPiece[0].x][newPiece[0].y] != 0 ||
         map[newPiece[1].x][newPiece[1].y] != 0 ||
         map[newPiece[2].x][newPiece[2].y] != 0 ||
         map[newPiece[3].x][newPiece[3].y] != 0 || 
@@ -8,14 +17,6 @@ function checkMouv(newPiece, map){
         newPiece[2].y > 20 ||
         newPiece[3].y > 20)
         return (2);
-    if (
-        newPiece[0].x > 10 || newPiece[0].x < 0 || 
-        newPiece[1].x > 10 || newPiece[1].x < 0 ||
-        newPiece[2].x > 10 || newPiece[2].x < 0 ||
-        newPiece[3].x > 10 || newPiece[3].x < 0 ||
-        newPiece[0].y < 0 || newPiece[1].y < 0 ||
-        newPiece[2].y < 0 || newPiece[3].y < 0)
-        return (1);
     else 
         return (0);
 }

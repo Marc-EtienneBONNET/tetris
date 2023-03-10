@@ -10,6 +10,7 @@ import { connectGame, disconnectGame, changeMap } from '../../reducer/reducerGam
 export function ModuleAccueil(){
     let user = useSelector((state) => state.user.value)
     let game = useSelector((state) => state.game.value)
+    let tabIndex="0"
     let dispatch = useDispatch();
 
     function handleSupProfile(state){
@@ -27,7 +28,7 @@ export function ModuleAccueil(){
     if (user.gameId === -1 && game.id )
         dispatch(disconnectGame());
     return (
-        <div>
+        <div >
             <input onClick={() => {handleDisconnectedProfile()}} type="button" value="Disconnected"/>
             <input onClick={() => {handleSupProfile()}} type="button" value="Sup profile"/>
             <input onClick={() => {dispatch(salonReglage())}} type="button" value="new Game"/>
