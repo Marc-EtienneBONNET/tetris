@@ -40,7 +40,7 @@ function newMap(user){
       }
       else{
         users[objUser.index].piece = new Bar(0, 15, 0, 1, objUser.user.map)
-        games[objGame.index].seriePiece.push(users[objUser.index].piece)
+        games[objGame.index].seriePiece.push(new Bar(0, 15, 0, 1, objUser.user.map))
       }
     }
     else {
@@ -49,7 +49,7 @@ function newMap(user){
       }
       else{
         users[objUser.index].piece = new Bar(1, 0, games[objGame.index].seriePiece.length, 1, objUser.user.map)
-        games[objGame.index].seriePiece.push(users[objUser.index].piece)
+        games[objGame.index].seriePiece.push(new Bar(1, 0, games[objGame.index].seriePiece.length, 1, objUser.user.map))
         }
     }
   }

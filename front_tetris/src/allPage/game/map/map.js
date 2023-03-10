@@ -17,7 +17,8 @@ export function ModuleGameMap(){
     
     function boucleRefresh(){
         if (OnShot === false){ // permer de s'assurer que les fonction executer ne seront executer qu une fois 
-            socket.emit('newPiece', myUser);
+            // if (myGame.listePlayeur.length >= myGame.nbPlayeur)
+               // socket.emit('newPiece', myUser);
             setOnShot(true);
             socket.emit('boucle', {myUser:myUser, crono:true}); // l'appel 'boucle' permer de creer une boucle de refresh avec le jeux sans changer la data afin d eviter de refaire charger le module
                                                                 // myUser permer de de recupe les info de game si besoin
@@ -51,7 +52,6 @@ export function ModuleGameMap(){
 
     
     boucleRefresh();
-
     function handleMouvPiece(e){
         switch(e.keyCode){
             case 39:

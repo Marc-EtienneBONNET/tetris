@@ -56,16 +56,23 @@ io.on("connection", (socket) => {
         crono += 1;
       if (crono%10 === 0){
         let objUserTmp = takeUser(data.myUser.id);
+        let objGameTmp = takeGame(data.myUser.gameId);
         let myDataGame = {
-          game : (takeGame(data.myUser.gameId)).game,
+          game : objGameTmp.game,
           user : objUserTmp.user
         };
-        if (users[objUserTmp.index].piece.index != -1){
-          users[objUserTmp.index].piece.mouvPiece(users[objUserTmp.index].piece.sens,users[objUserTmp.index].piece.x, users[objUserTmp.index].piece.y + 1, users[objUserTmp.index].map);
-          if (users[objUserTmp.index].piece.fin === true){
-            users[objUserTmp.index].map = newMap(users[objUserTmp.index]);
+        if (games[objGameTmp.index].nbPlayeur <= games[objGameTmp.index].listePlayeur.length){
+          if (!users[objUserTmp.index].piece.sens || users[objUserTmp.index].piece.index === -1){
             newPiece(users[objUserTmp.index]);
           }
+          else if (users[objUserTmp.index].piece.index != -1){
+            users[objUserTmp.index].piece.mouvPiece(users[objUserTmp.index].piece.sens,users[objUserTmp.index].piece.x, users[objUserTmp.index].piece.y + 1, users[objUserTmp.index].map);
+            if (users[objUserTmp.index].piece.fin === true){
+              users[objUserTmp.index].map = newMap(users[objUserTmp.index]);
+              newPiece(users[objUserTmp.index]);
+            }
+          }
+
         }
         socket.emit('tictac', myDataGame);
       }
